@@ -8,5 +8,4 @@ RouteManager.attach = function(app) {
     app.use('/teamService', require('./teamService'));
     app.use('/user', require('./user'));
 };
-
 module.exports = RouteManager;
