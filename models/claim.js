@@ -1,25 +1,29 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-    const Product = sequelize.define('product', {
+    const Claim = sequelize.define('claim', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        claim_number: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        reference: {
+        address: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        description: {
-            type: DataTypes.STRING,
+        admissibility: {
+            type: DataTypes.BOOLEAN,
             allowNull: false
         },
-        price: {
-            type: DataTypes.DOUBLE,
+        closing_date: {
+            type: DataTypes.DateTimeFormat,
+            allowNull: false
+        },
+        pick_up_date: {
+            type: DataTypes.DateTimeFormat,
             allowNull: false
         }
     }, {
@@ -27,15 +31,11 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Product.associate = _associate;
-    return Product;
+    Claim.associate = _associate;
+    return Claim;
 };
 
 //INTERNAL
 function _associate(models) {
-    models.ProductService.belongsToMany(models.Order, {
-        as: 'orders',
-        through: 'order_product',
-        foreignKey: 'product_id'
-    });
+
 }

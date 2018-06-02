@@ -1,12 +1,16 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-    const Item = sequelize.define('item', {
+    const Transporter = sequelize.define('transporter', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        wording: {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        contact: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -15,14 +19,11 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Item.associate = _associate;
-    return Item;
+    Transporter.associate = _associate;
+    return Transporter;
 };
 
 //INTERNAL
 function _associate(models) {
-    models.Item.hasMany(models.Item , {
-        as: 'items',
-        foreignKey: 'item_type_id'
-    });
+
 }

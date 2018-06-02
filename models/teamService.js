@@ -1,13 +1,21 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-    const Item = sequelize.define('item', {
+    const TeamService = sequelize.define('team_service', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        wording: {
+        name: {
             type: DataTypes.STRING,
+            allowNull: false
+        },
+        start_date: {
+            type: DataTypes.DateTimeFormat,
+            allowNull: false
+        },
+        end_date: {
+            type: DataTypes.DateTimeFormat,
             allowNull: false
         }
     }, {
@@ -15,14 +23,11 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Item.associate = _associate;
-    return Item;
+    TeamService.associate = _associate;
+    return TeamService;
 };
 
 //INTERNAL
 function _associate(models) {
-    models.Item.hasMany(models.Item , {
-        as: 'items',
-        foreignKey: 'item_type_id'
-    });
+
 }
