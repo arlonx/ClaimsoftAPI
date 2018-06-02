@@ -6,20 +6,20 @@ module.exports = function (sequelize, DataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-        name: {
+        date: {
+            type: DataTypes.DateTimeFormat,
+            allowNull: false
+        },
+        address: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        reference: {
-            type: DataTypes.STRING,
+        expedition_date: {
+            type: DataTypes.DateTimeFormat,
             allowNull: false
         },
-        description: {
+        tracking: {
             type: DataTypes.STRING,
-            allowNull: false
-        },
-        price: {
-            type: DataTypes.DOUBLE,
             allowNull: false
         }
     }, {
@@ -33,9 +33,9 @@ module.exports = function (sequelize, DataTypes) {
 
 //INTERNAL
 function _associate(models) {
-    models.ProductService.belongsToMany(models.Order, {
-        as: 'orders',
+    models.Product.belongsToMany(models.Product, {
+        as: 'products',
         through: 'order_product',
-        foreignKey: 'product_id'
+        foreignKey: 'order_id'
     });
 }

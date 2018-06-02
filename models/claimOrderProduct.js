@@ -1,12 +1,20 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-    const Item = sequelize.define('item', {
+    const ClaimOrderProduct = sequelize.define('claim_order_product', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
             autoIncrement: true
         },
-        wording: {
+        claim_quantity: {
+            type: DataTypes.BIGINT,
+            allowNull: false
+        },
+        problem_description: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        solution_description: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -15,14 +23,11 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Item.associate = _associate;
-    return Item;
+    ClaimOrderProduct.associate = _associate;
+    return ClaimOrderProduct;
 };
 
 //INTERNAL
 function _associate(models) {
-    models.Item.hasMany(models.Item , {
-        as: 'items',
-        foreignKey: 'item_type_id'
-    });
+
 }
