@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-    const Item = sequelize.define('item', {
+    const ClaimStatus = sequelize.define('claim_status', {
         id: {
             type: DataTypes.BIGINT,
             primaryKey: true,
@@ -15,14 +15,13 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    Item.associate = _associate;
-    return Item;
+    ClaimStatus.associate = _associate;
+    return ClaimStatus;
 };
 
 //INTERNAL
 function _associate(models) {
-    models.Item.hasMany(models.Item , {
-        as: 'items',
-        foreignKey: 'item_type_id'
+    models.ClaimStatus.hasMany(models.Claim , {
+
     });
 }

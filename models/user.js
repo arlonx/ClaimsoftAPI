@@ -65,10 +65,25 @@ module.exports = function (sequelize, DataTypes) {
                 console.error(err);
             });
     };
-    User.getToken = function () {
+    User.getToken = function (user) {
         let expiration_time = parseInt(CONFIG.jwt_expiration);
-        return jwt.sign({user_id:this.id}, CONFIG.jwt_encryption, {expiresIn: expiration_time});
+        return jwt.sign({
+                user_id: user.get('id'),
+                name: user.get('name'),
+                surname: user.get('surname')
+            },
+            CONFIG.jwt_encryption,
+            {expiresIn: expiration_time});
     };
 
+    User.associate = _associate;
     return User;
 };
+
+function _associate(models) {
+    models.User.belongsToMany(models.TeamService, {
+        as: 'teamServices',
+        through: 'user_team_service',
+        foreignKey: 'user_id'
+    });
+}
